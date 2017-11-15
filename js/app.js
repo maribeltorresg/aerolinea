@@ -1,64 +1,79 @@
-// Declarar un arreglo que representara los asientos de nuestro
-//  avion con vacios = false 
-// ocupado = true
-var airlineSeats = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false
-];
 
-// Contador que nos ayudara a rastrear el numero de asientos acupados
-var busySeats = 0;
-// Pinte los asientos
-var paintSeats = function(array) {
-  var containerSeats = document.getElementById('seats');
-  // pasar por el arreglo
-  for (var i = 0; i < array.length; i++) {
-    var seat = document.createElement('div');
-    seat.className = 'seats';
 
-    // asientos del 1 - 4 --> en nuestro arreglo va a ser (Primera clase), que seria del indice 0 al 3
-    if (i < 4) {
-      seat.style.background = 'purple';
-    } else {
-      seat.style.background = 'yellow';  
+window.onload = function() {
+  var seats = [ 
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
+
+  function dibujar() { 
+    var seatsNode = document.getElementById('seats'); 
+    seatsNode.textContent = '';
+    // recorrer el array 
+    seats.forEach(function(element, index) {
+      var div = document.createElement('div');
+      seatsNode.appendChild(div);
+      div.className = 'seat';
+      if (element === true) {
+        div.className = div.className + ' busy';
+      }
+      if (index < 4) {
+        div.className = div.className + ' primera';
+      } else {
+        div.className = div.className + ' economica';
+      }
+    });
+  }
+  // seleccionar el boton 
+  var boton = document.getElementById('boton');
+  boton.addEventListener('click', function reserve(event, clase) {
+    var clase = clase || parseInt(prompt('1. Primera Clase \n 2. Económica'));
+    if (clase > 2) {
+      clase = 1;
     }
-    containerSeats.appendChild(seat);
-  }
+    var finalized = false;
+
+    console.log(clase);
+
+    if (clase === 1) {
+      for (var i = 0; i < 4; i++) {
+        if (seats[i] === false) {
+          seats[i] = true;
+          finalized = true;
+          // escapamos  del for
+          break;
+        }
+      }
+    } else if (clase === 2) {
+      for (var i = 4; i < 10; i++) {
+        if (seats[i] === false) {
+          seats[i] = true;
+          finalized = true;
+          break;
+        }
+      }
+    } else {
+      alert('Por favor ingrese un número válido');
+    }
+
+    if (!finalized) {
+      if (confirm('Asientos no disponibles en esta clase, desea reservar en otra?')) {
+        reserve(null, clase + 1);
+      }
+    }
+
+    console.log(seats);
+    dibujar();
+  });
+
+  dibujar();
 };
-// reservar los asientos
-var reserve = function() {
-  var btn = document.getElementById('btn');
-  btn.addEventListener('click', chooseZone);
-};
-
-var chooseZone = function() {
-  var choice = prompt('En que zona prefieres reservar \n 1. Primera Clase \n 2. Economica \n \n Por favor ingresa el numero de tu preferencia');
-  
-  if (choice === 1) {
-    checkFirstClassZone();
-  } else if (choice === 2) {
-      checkEconomicZone();
-  } else {
-      alert('Por favor ingresa un numero valido');
-  }
-};
-
-var checkFirstClassZone = function() {
-    var zone = 'Primera Clase';
-
-    for (var i = 0; inde)
-};
-
-var checkEconomicZone = function() {
-
-}
-paintSeats(airlineSeats);
-reserve();

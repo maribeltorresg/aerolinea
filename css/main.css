@@ -1,14 +1,33 @@
-.first-class {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.seat {
+    border: 1px solid black;
+    display: inline-block;
+    height: 60px;
+    width: 70px;
+}
+
+.seat.primera {
     background-color: purple;
 }
 
-.economic-class {
+.seat.economica {
     background-color: yellow;
 }
 
-#seats {
-    border: 1px solid black;
-    display: inline-block;
-    height: 100px;
-    width: 200px;
+.seat.busy {
+    background-color: red;
 }
